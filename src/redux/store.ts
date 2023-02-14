@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import "react-redux";
 
-import XReducer from "./reducers/x";
+import GhActionJsonReducer from "./reducers/ghActionJson";
 
-const rootReducer = combineReducers({ x: XReducer });
+const rootReducer = combineReducers({ ghActionJson: GhActionJsonReducer });
 export type RootState = ReturnType<typeof rootReducer>;
 
 export const store = configureStore({

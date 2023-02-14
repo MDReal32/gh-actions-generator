@@ -43,17 +43,26 @@ export class Yaml {
     lines.push(``);
     this.setIndent(this.indentation + this.indentationCount);
     values.forEach(value => {
-      lines.push(`${this.indent()}- ${value}`);
+      const val = this.parse(value).trimStart();
+      val && lines.push(`${this.indent()}- ${val}`);
     });
     this.setIndent(this.indentation - this.indentationCount);
     return lines.join("\n");
   }
 
   private string(value: string): string {
-    return `"${value}"`;
+    const rawValue = value.replace(/\${{.*}}/g, "");
+    if (rawValue.includes("\n")) {
+      return `|\n${value
+        .split("\n")
+        .map(line => `${this.indent(this.indentationCount)}${line}`)
+        .join("\n")}`;
+    }
+    if (rawValue.match(/[\s{}\[\]():,#&*!|'"%@~`>?=]/)) return `"${value}"`;
+    return `${value}`;
   }
 
-  private indent(): string {
-    return " ".repeat(this.indentation - this.indentationCount);
+  private indent(localIndent = 0): string {
+    return " ".repeat(this.indentation - this.indentationCount + localIndent);
   }
 }

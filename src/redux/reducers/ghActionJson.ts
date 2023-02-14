@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import type { GhAction } from "@types/GhAction";
+import type { GhAction } from "@/types/GhAction";
 
 interface Slice {
   json: GhAction;

@@ -1,15 +1,18 @@
 import { Col, Container, Row } from "react-bootstrap";
-import { ActionView } from "./components/ActionView";
+
+import { ActionForm, ActionView } from "@components";
 
 export const App = () => {
   return (
     <Container>
       <Row>
         <Col xs={6} as="aside">
-          <ActionView></ActionView>
+          <ActionView />
         </Col>
 
-        <Col xs={6} as="aside"></Col>
+        <Col xs={6} as="aside">
+          <ActionForm />
+        </Col>
       </Row>
     </Container>
   );

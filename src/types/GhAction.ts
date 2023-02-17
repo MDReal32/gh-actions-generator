@@ -8,10 +8,9 @@ interface GhActionAction {
   branches?: (Branch | string)[];
 }
 
-interface GhActionOn {
-  push?: GhActionAction | null;
-  pull_request?: GhActionAction | null;
-}
+export type GhOnEventType = "push" | "pull_request";
+
+export type GhActionOn = Partial<Record<GhOnEventType, GhActionAction | null>>;
 
 export interface GhAction {
   name: string;

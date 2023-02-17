@@ -1,10 +1,10 @@
 import { GhActionJob } from "./GhActionJob";
 
-interface Branch {
+export interface Branch {
   name: string;
 }
 
-interface GhActionAction {
+export interface GhActionAction {
   branches?: (Branch | string)[];
 }
 

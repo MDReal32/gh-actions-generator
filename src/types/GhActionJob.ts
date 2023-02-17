@@ -1,4 +1,4 @@
-interface GhActionStep {
+export interface GhActionStep {
   name: string;
   uses?: string;
   with?: Record<string, string>;

@@ -2,10 +2,10 @@ import { FC } from "react";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
-import { Yaml } from "@utils/Yaml";
+import { Yaml } from "@common/core/Yaml";
 
 import { ActionViewProps } from "./ActionView.props";
-import { getJson } from "./redux/selector";
+import { getUpdatedJson } from "./redux/selector";
 
 /*
 permissions:
@@ -18,7 +18,7 @@ concurrency:
 */
 
 export const ActionView: FC<ActionViewProps> = () => {
-  const ghAction = useSelector(getJson);
+  const ghAction = useSelector(getUpdatedJson);
   const yml = Yaml.parse(ghAction);
 
   return (

@@ -5,3 +5,8 @@ export interface Branch {
   name: string;
   type: GhOnEventType;
 }
+
+export interface ActionFormSchemaAndInitialValues<T> {
+  schema: T;
+  initialValues: T;
+}

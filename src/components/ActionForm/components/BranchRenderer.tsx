@@ -15,10 +15,10 @@ export const BranchRenderer: FC<RendererItem<Branch>> = ({ item: branch, index }
   const dispatch = useDispatch();
   const ghActionOn = useSelector(getActionOn);
 
-  const handler = (name: GhOnEventType) => {
+  const handler = (actionType: GhOnEventType) => {
     return (event: ChangeEvent<HTMLInputElement>) => {
       const dispatchEvent = event.target.checked ? setOnValue : removeOnValue;
-      dispatch(dispatchEvent([name, "branches", branch.id]));
+      dispatch(dispatchEvent([actionType, "branches", branch.id]));
     };
   };
 

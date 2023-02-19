@@ -10,6 +10,7 @@ import { Section } from "@components/Section";
 import { AddableListProps } from "./AddableList.props";
 import { deepMapOverChildren } from "@common/utils/deepMapOverChildren";
 import { find } from "lodash";
+import { ActionFormSchemaAndInitialValues } from "@components/ActionForm/ActionForm.props";
 
 export const AddableList = <T extends FormikValues>({
   list = [],
@@ -28,20 +29,25 @@ export const AddableList = <T extends FormikValues>({
     .map(child => {
       if (child && typeof child === "object" && "props" in child) {
         return {
-          schema: { [child.props.id]: child.props.schema } as T,
-          initialValues: { [child.props.id]: child.props.defaultValue || "" } as T
-        };
+          schema: { [child.props.id]: child.props.schema },
+          initialValues: { [child.props.id]: child.props.defaultValue || "" }
+        } as ActionFormSchemaAndInitialValues<T>;
       }
     })
-    .filter((child): child is { schema: T; initialValues: T } => !!child)
-    .reduce((acc, curr) => ({ ...acc, ...curr }), {} as { schema: T; initialValues: T });
+    .filter((item): item is ActionFormSchemaAndInitialValues<T> => !!item)
+    .reduce((acc, curr) => ({ ...acc, ...curr }), {} as ActionFormSchemaAndInitialValues<T>);
 
   const form = useFormik({
-    initialValues: isSetId ? { ...initialValues, id: uuidV4() } : initialValues,
+    initialValues,
     validationSchema: yup.object().shape(schema),
     onSubmit(values) {
       if (find(list, values)) return;
+      if (isSetId) {
+        // @ts-ignore
+        values.id = uuidV4();
+      }
       onChange?.([...list, values]);
+      form.resetForm();
     }
   });
 

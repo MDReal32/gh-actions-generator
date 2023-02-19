@@ -18,7 +18,8 @@ export const AddableList = <T extends FormikValues>({
   render: RendererComponent,
   onChange,
   children,
-  isSetId
+  isSetId,
+  btnLabel
 }: PropsWithChildren<AddableListProps<T>>): ReturnType<FC> => {
   const validChildren: ReactElement[] = [];
   deepMapOverChildren(children, child => {
@@ -75,7 +76,7 @@ export const AddableList = <T extends FormikValues>({
           <hr className="my-1 border-white" />
         </When>
 
-        <When condition={Object.keys(form.errors).length > 0}>
+        <When condition={Object.keys(form.errors).length > 0 && form.submitCount > 0}>
           <Alert variant="danger">
             {Object.entries(form.errors).map(([key, value]) => (
               <div key={key}>{value}</div>
@@ -86,7 +87,7 @@ export const AddableList = <T extends FormikValues>({
         {childrenWithProps}
 
         <Button variant="primary" onClick={form.submitForm}>
-          Add
+          {btnLabel || "Add"}
         </Button>
       </Stack>
     </Section>

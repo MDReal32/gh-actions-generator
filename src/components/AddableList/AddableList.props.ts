@@ -6,6 +6,7 @@ export interface AddableListProps<T> {
   label?: string;
   onChange?: (item: T[]) => void;
   isSetId?: boolean;
+  btnLabel?: string;
 }
 
 export interface RendererItem<T = any> {
